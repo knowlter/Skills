@@ -8,7 +8,7 @@ description: 대한민국 법원경매 사이트에서 사용자가 제공한 �
 ## 절차
 
 1. 입력 사건번호에서 연도, 사건구분, 일련번호와 선택적 법원 정보를 분리한다.
-2. `adapter.yaml`을 검증하고 `search_case` operation을 실행한다.
+2. `../../site.yaml`과 `../../operations/search-case.yaml`을 검증하고 `search_case` Operation을 실행한다.
 3. 법원 정보가 없으면 어댑터가 허용한 법원 범위만 낮은 동시성으로 조회한다.
 4. 사건번호와 법원 코드 조합으로 결과를 중복 제거한다.
 5. 각 후보에 안정적인 `selection_id`, 법원명, 사건번호, 상태, 물건 수, `detail_url`을 포함한다.

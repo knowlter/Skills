@@ -9,7 +9,7 @@ description: search-auction-cases 결과에서 사용자가 선택한 대한민�
 
 1. 검색 결과의 `selection_id`와 `detail_url` 또는 동등한 사건 식별자를 받는다.
 2. URL의 스킴과 호스트를 어댑터의 허용 범위와 대조한다. 임의 외부 URL은 거부한다.
-3. `adapter.yaml`을 검증하고 `get_case_detail` operation을 실행한다.
+3. `../../site.yaml`과 `../../operations/get-case-detail.yaml`을 검증하고 `get_case_detail` Operation을 실행한다.
 4. 사건 기본정보, 물건 목록, 기일, 가격과 상태를 표준 결과로 정규화한다.
 5. 금액은 통화와 정수 값을 분리하고, 날짜는 원문과 정규화 값을 보존한다.
 6. 누락된 필드를 추측하지 말고 `null` 및 경고로 표시한다.

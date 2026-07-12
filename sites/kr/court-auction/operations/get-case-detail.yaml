@@ -1,0 +1,40 @@
+schema_version: 1
+
+operation:
+  id: get_case_detail
+  status: unverified
+  description: 사용자가 선택한 경매사건의 상세정보를 추출한다.
+
+inputs:
+  selection_id:
+    type: string
+    pattern: '^kr-court-auction:[^:]+:\d{4}타경\d+$'
+  detail_url:
+    type: string
+    required: false
+
+request:
+  method: GET
+  path: /__unverified__/detail
+  parameters:
+    __unverified_case_id_field__: '${input.selection_id}'
+
+response:
+  format: html
+  parser: case-detail
+
+parsers:
+  case-detail:
+    status: unverified
+    root:
+      selector: main.__unverified__
+    fields:
+      court_name:
+        selector: .__unverified__-court-name
+        transform: trim
+      case_number:
+        selector: .__unverified__-case-number
+        transform: normalize-space
+      case_status:
+        selector: .__unverified__-case-status
+        transform: trim

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/knowlter/Skills/schemas/operation.schema.json",
+  "title": "Knowlter Skills Operation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "operation", "inputs", "request", "response", "parsers"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "description"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "status": { "enum": ["unverified", "verified", "broken"] },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "enum": ["string", "number", "integer", "boolean", "object", "array"] },
+          "pattern": { "type": "string" },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": ["method", "path"],
+      "properties": {
+        "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"] },
+        "path": { "type": "string", "pattern": "^/" },
+        "encoding": { "enum": ["form", "json", "query", "multipart"] },
+        "parameters": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean", "null"] } }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": ["format", "parser"],
+      "properties": {
+        "format": { "enum": ["html", "json", "xml", "text", "binary"] },
+        "parser": { "type": "string", "minLength": 1 }
+      }
+    },
+    "parsers": { "type": "object", "minProperties": 1 }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/knowlter/Skills/schemas/error.schema.json",
+  "title": "Knowlter Skills Error Code",
+  "type": "string",
+  "enum": [
+    "invalid_input",
+    "unsupported_operation",
+    "network_error",
+    "forbidden",
+    "rate_limited",
+    "user_authentication_required",
+    "browser_required",
+    "adapter_outdated",
+    "parse_error",
+    "partial"
+  ]
+}

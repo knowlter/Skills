@@ -6,41 +6,22 @@ site:
   country: KR
   locale: ko-KR
   base_url: https://example.invalid
+  allowed_hosts:
+    - example.invalid
   access: public
 
 maintenance:
   status: experimental
   last_verified: 2026-07-12
-  verification_mode: fixture-only
+  verification_mode: design-only
+  owners: []
   known_limits:
-    - Live detail endpoint and selectors are not yet verified.
+    - Live endpoints, request parameters, and selectors are not verified.
     - Personally identifying fields must be redacted from fixtures.
 
-capabilities:
-  - get_case_detail
-
-inputs:
-  selection_id:
-    type: string
-  detail_url:
-    type: string
-    required: false
-
-operations:
-  get_case_detail:
-    status: unverified
-    request:
-      method: GET
-      path: /__unverified__/detail
-    response:
-      format: html
-      parser: case-detail
-
-parsers:
-  case-detail:
-    status: unverified
-    root:
-      selector: main.__unverified__
+session:
+  cookies:
+    persist: true
 
 limits:
   concurrency: 1
@@ -53,6 +34,6 @@ errors:
     - captcha
     - verify you are human
     - access denied
-  map:
+  status_map:
     403: forbidden
     429: rate_limited

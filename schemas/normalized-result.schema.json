@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/knowlter/Skills/schemas/normalized-result.schema.json",
+  "title": "Knowlter Skills Normalized Result",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "items", "warnings", "source"],
+  "properties": {
+    "status": { "enum": ["ok", "partial"] },
+    "items": { "type": "array", "items": { "type": "object" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["site_id", "operation", "fetched_at"],
+      "properties": {
+        "site_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "operation": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "fetched_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

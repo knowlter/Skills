@@ -1,0 +1,51 @@
+schema_version: 1
+
+operation:
+  id: search_case
+  status: unverified
+  description: 사건번호로 법원별 후보 사건을 검색한다.
+
+inputs:
+  case_number:
+    type: string
+    pattern: '^(?<year>\d{4})(?<case_type>타경)(?<serial>\d+)$'
+  court_code:
+    type: string
+    required: false
+
+request:
+  method: POST
+  path: /__unverified__/search
+  encoding: form
+  parameters:
+    __unverified_year_field__: '${input.year}'
+    __unverified_case_type_field__: '${input.case_type}'
+    __unverified_serial_field__: '${input.serial}'
+    __unverified_court_code_field__: '${input.court_code}'
+
+response:
+  format: html
+  parser: search-result
+
+parsers:
+  search-result:
+    status: unverified
+    rows:
+      selector: table.__unverified__ tbody tr
+    fields:
+      court_code:
+        selector: td:nth-child(1)
+        attribute: data-court-code
+      court_name:
+        selector: td:nth-child(1)
+        transform: trim
+      case_number:
+        selector: td:nth-child(2)
+        transform: normalize-space
+      status:
+        selector: td:nth-child(3)
+        transform: trim
+      detail_url:
+        selector: td:nth-child(2) a
+        attribute: href
+        transform: absolute-url
