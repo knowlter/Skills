@@ -1,0 +1,58 @@
+schema_version: 1
+
+site:
+  id: kr-court-auction
+  name: 대한민국 법원경매
+  country: KR
+  locale: ko-KR
+  base_url: https://example.invalid
+  access: public
+
+maintenance:
+  status: experimental
+  last_verified: 2026-07-12
+  verification_mode: fixture-only
+  known_limits:
+    - Live detail endpoint and selectors are not yet verified.
+    - Personally identifying fields must be redacted from fixtures.
+
+capabilities:
+  - get_case_detail
+
+inputs:
+  selection_id:
+    type: string
+  detail_url:
+    type: string
+    required: false
+
+operations:
+  get_case_detail:
+    status: unverified
+    request:
+      method: GET
+      path: /__unverified__/detail
+    response:
+      format: html
+      parser: case-detail
+
+parsers:
+  case-detail:
+    status: unverified
+    root:
+      selector: main.__unverified__
+
+limits:
+  concurrency: 1
+  requests_per_second: 1
+  timeout_seconds: 30
+  retries: 1
+
+errors:
+  challenge_patterns:
+    - captcha
+    - verify you are human
+    - access denied
+  map:
+    403: forbidden
+    429: rate_limited

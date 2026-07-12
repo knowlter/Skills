@@ -1,0 +1,4 @@
+interface:
+  display_name: "법원경매 사건 상세 추출"
+  short_description: "선택된 법원경매 사건 페이지에서 구조화된 정보를 추출합니다"
+  default_prompt: "Use $extract-auction-case-detail to extract structured information from the selected court-auction case."

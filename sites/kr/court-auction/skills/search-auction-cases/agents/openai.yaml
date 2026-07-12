@@ -1,0 +1,4 @@
+interface:
+  display_name: "법원경매 사건 검색"
+  short_description: "사건번호로 법원경매 후보 사건을 검색하고 목록화합니다"
+  default_prompt: "Use $search-auction-cases to search and list court-auction cases by case number."
